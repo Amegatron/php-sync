@@ -2,29 +2,40 @@
 
 namespace PhpSync;
 
+use PhpSync\Exceptions\OperationException;
+
 /**
  * Interface CounterInterface
  *
  * Defines an interface for working with integers in parallel processes.
  *
- * Capitalized words are to be interpreted as described in RFC2119 with addition of this terms:
+ * Capitalized words are to be interpreted as described in RFC2119 with addition of these terms:
  *
- *   Integer (with capitalized I) means an entity representing an integer number which parallel processes work with.
+ *      Integer (with capitalized I) means an entity representing an integer number which parallel processes work with.
  *
- *   ACTUAL VALUE - A real value of an Integer which other atomic operations work with.
- *   KNOWN VALUE - A value of an Integer known by a specific instance of an IntegerInterface.
- *                 It MAY be always equal to an ACTUAL VALUE, but does not necessarily have to.
- *                 When using any implementation of IntegerInterface it is RECOMMENDED to assume
- *                 they are not equal if it is crucial to know the ACTUAL VALUE of an Integer.
+ *      ACTUAL VALUE - A real value of an Integer shared across different processes.
+ *          At any given moment in time there can be only one ACTUAL VALUE.
+ *      KNOWN VALUE - A value of an Integer known by an individual process/instance of this interface.
+ *          It MAY be always equal to an ACTUAL VALUE, but does not necessarily have to.
+ *          When using any implementation of IntegerInterface it is RECOMMENDED to assume
+ *          they are not equal if it is crucial to know the ACTUAL VALUE of an Integer.
  *
- *  If a word "value" in relation to Integer is used by itself, it is either not important to distinguish between
- *  ACTUAL and KNOWN values, or the meaning is obvious from the context. Otherwise an ACTUAL VALUE is meant.
+ *      If a word "value" in relation to Integer is used by itself, it is either not important to distinguish between
+ *      ACTUAL and KNOWN values, or the meaning is obvious from the context. Otherwise an ACTUAL VALUE is meant.
  *
- *  Every method which is meant to modify the ACTUAL VALUE of an Integer MUST be atomic, meaning that all subsequent
- *  operations with the ACTUAL VALUE, including parallel processes, MUST operate with the new ACTUAL VALUE.
+ *      "Ghost" means a Lock which still exists but is no longer relevant for the consuming application and was not
+ *      released by the initiator for whatever reasons, for example a crash.
  *
- *  Every method which is meant to modify the ACTUAL VALUE of an Integer MUST update the KNOWN VALUE of it's instance
- *  to a new ACTUAL VALUE got as a result of directly this operation. See description of increment() for examples.
+ * Every method which is meant to modify the ACTUAL VALUE of an Integer MUST be atomic, meaning that all subsequent
+ * operations concerning the ACTUAL VALUE, including parallel processes, MUST work with the new ACTUAL VALUE.
+ *
+ * Every method which is meant to modify the ACTUAL VALUE of an Integer MUST update the KNOWN VALUE of it's instance
+ * to a new ACTUAL VALUE got as a result of directly this operation. @see increment() for description and examples.
+ *
+ * If not stated otherwise, any operation which is meant to modify or read an ACTUAL VALUE MUST throw OperationException
+ * provided by this package if it fails due to technical reasons.
+ *
+ * When it is said that a specific Exception MUST/SHOULD/MAY be thrown, it MAY be inheritor of the mentioned Exception of any level.
  *
  * @package PhpSync
  * @see https://www.ietf.org/rfc/rfc2119.txt
@@ -55,11 +66,12 @@ interface IntegerInterface
      *
      * @param int $value
      * @return mixed
+     * @throws OperationException
      */
     public function setValue(int $value);
 
     /**
-     * Increments an ACTUAL VALUE by a specified amount and returns the new value.
+     * Increments the ACTUAL VALUE by a specified amount and returns the new value.
      *
      * This increment MUST be atomic, meaning that after any N amount of subsequent increment attempts by 1
      * an Integer MUST have a final ACTUAL VALUE increased by N, assuming there were no intermediate decrements.
@@ -97,6 +109,7 @@ interface IntegerInterface
      * @param int $by
      * @return int
      * @see decrement
+     * @throws OperationException
      */
     public function increment($by = 1): int;
 
@@ -108,6 +121,7 @@ interface IntegerInterface
      * @param int $by
      * @return int
      * @see increment
+     * @throws OperationException
      */
     public function decrement($by = 1): int;
 
@@ -119,6 +133,7 @@ interface IntegerInterface
      *
      * @return void
      * @see getValue
+     * @throws OperationException
      */
     public function refresh();
 }
