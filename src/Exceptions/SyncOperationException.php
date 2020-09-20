@@ -4,7 +4,7 @@ namespace PhpSync\Exceptions;
 
 use Exception;
 
-class OperationException extends Exception
+class SyncOperationException extends Exception
 {
 
 }

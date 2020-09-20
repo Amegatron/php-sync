@@ -1,6 +1,8 @@
 <?php
 
-namespace PhpSync;
+namespace PhpSync\Interfaces;
+
+use PhpSync\Exceptions\SyncOperationException;
 
 /**
  * Interface LockInterface
@@ -26,27 +28,33 @@ interface LockInterface
     /**
      * Acquires a lock.
      *
-     * This method MUST be blocking, meaning if a corresponding lock already exists, it blocks further execution
+     * This method MUST be blocking, meaning if a corresponding Lock already exists, it blocks further execution
      * until the lock is released and then acquires it itself.
-     * If there is no such lock yet - just acquires it and continues execution.
-     * If the Lock was successfully acquired, this method MUST return TRUE.
-     * If it is impossible to acquire a lock for technical reasons (excluding the situation when it is impossible
-     * to acquire a lock because it already exists), the method MUST return FALSE.
      *
-     * @return bool
+     * If there is no such lock yet - just acquires it and continues execution.
+     *
+     * If it is impossible to acquire a lock for technical reasons (failure of underlying services), though it is not
+     * yet acquired by somebody else, the method MUST throw a SyncOperationException.
+     *
+     * @return void
+     * @throws SyncOperationException
      */
-    public function lock(): bool;
+    public function lock();
 
     /**
      * Releases the lock.
      *
      * This method MUST release the lock no matter if it was acquired by another process.
      * This is to prevent ghost locks, though the logic to determine them lies beyond this interface.
-     * In case a lock could not be released cause of technical reasons (including situations when the underlying
-     * locking mechanism does not allow unlocking from anyone other than the initiator), this method MUST return FALSE.
-     * In case an existing Lock was successfully released, or the Lock didn't exist, this method MUST return TRUE.
      *
-     * @return mixed
+     * In case a lock could not be released cause of technical reasons (including situations when the underlying
+     * locking mechanism does not allow unlocking from anyone other than the initiator), this method MUST throw
+     * SyncOperationException.
+     *
+     * If an existing Lock was released, the method returns true. If there ws no such Lock - returns false.
+     *
+     * @return bool
+     * @throws SyncOperationException
      */
     public function unlock(): bool;
 

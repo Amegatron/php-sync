@@ -1,8 +1,8 @@
 <?php
 
-namespace PhpSync;
+namespace PhpSync\Interfaces;
 
-use PhpSync\Exceptions\OperationException;
+use PhpSync\Exceptions\SyncOperationException;
 
 /**
  * Interface CounterInterface
@@ -32,7 +32,7 @@ use PhpSync\Exceptions\OperationException;
  * Every method which is meant to modify the ACTUAL VALUE of an Integer MUST update the KNOWN VALUE of it's instance
  * to a new ACTUAL VALUE got as a result of directly this operation. @see increment() for description and examples.
  *
- * If not stated otherwise, any operation which is meant to modify or read an ACTUAL VALUE MUST throw OperationException
+ * If not stated otherwise, any operation which is meant to modify or read an ACTUAL VALUE MUST throw SyncOperationException
  * provided by this package if it fails due to technical reasons.
  *
  * When it is said that a specific Exception MUST/SHOULD/MAY be thrown, it MAY be inheritor of the mentioned Exception of any level.
@@ -66,7 +66,7 @@ interface IntegerInterface
      *
      * @param int $value
      * @return mixed
-     * @throws OperationException
+     * @throws SyncOperationException
      */
     public function setValue(int $value);
 
@@ -108,8 +108,8 @@ interface IntegerInterface
      *
      * @param int $by
      * @return int
+     * @throws SyncOperationException
      * @see decrement
-     * @throws OperationException
      */
     public function increment($by = 1): int;
 
@@ -120,8 +120,8 @@ interface IntegerInterface
      *
      * @param int $by
      * @return int
+     * @throws SyncOperationException
      * @see increment
-     * @throws OperationException
      */
     public function decrement($by = 1): int;
 
@@ -131,9 +131,19 @@ interface IntegerInterface
      * This is for cases when an Integer has been changed by a parallel process and it is crucial for consumer of this
      * instance to know the ACTUAL VALUE.
      *
-     * @return void
+     * This method MUST return the ACTUAL VALUE of an Integer
+     *
+     * @return int
+     * @throws SyncOperationException
      * @see getValue
-     * @throws OperationException
      */
-    public function refresh();
+    public function refresh(): int;
+
+    /**
+     * This method deletes the Integer
+     *
+     * @return mixed
+     * @throws SyncOperationException
+     */
+    public function delete();
 }
