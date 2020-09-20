@@ -2,8 +2,6 @@
 
 namespace PhpSync\Generic;
 
-use PhpSync\Core\SingletonManagerInterface;
-
 class SingletonManager implements SingletonManagerInterface
 {
     protected $instances = [];

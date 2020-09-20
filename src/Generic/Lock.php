@@ -5,7 +5,6 @@ namespace PhpSync\Generic;
 use Exception;
 use PhpSync\Core\Exceptions\SyncOperationException;
 use PhpSync\Core\LockInterface;
-use PhpSync\Core\SingletonManagerInterface;
 use Throwable;
 
 /**
