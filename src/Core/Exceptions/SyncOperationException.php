@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSync\Exceptions;
+namespace PhpSync\Core\Exceptions;
 
 use Exception;
 

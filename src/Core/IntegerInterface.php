@@ -1,8 +1,8 @@
 <?php
 
-namespace PhpSync\Interfaces;
+namespace PhpSync\Core;
 
-use PhpSync\Exceptions\SyncOperationException;
+use PhpSync\Core\Exceptions\SyncOperationException;
 
 /**
  * Interface CounterInterface

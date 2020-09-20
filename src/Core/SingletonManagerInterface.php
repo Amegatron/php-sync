@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSync\Singletons;
+namespace PhpSync\Core;
 
 /**
  * Interface SingletonManagerInterface

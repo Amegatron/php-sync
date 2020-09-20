@@ -1,6 +1,8 @@
 <?php
 
-namespace PhpSync\Singletons;
+namespace PhpSync\Generic;
+
+use PhpSync\Core\SingletonManagerInterface;
 
 class SingletonManager implements SingletonManagerInterface
 {

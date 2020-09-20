@@ -1,12 +1,11 @@
 <?php
 
-namespace PhpSync;
+namespace PhpSync\Generic;
 
 use Exception;
-use PhpSync\Exceptions\SyncOperationException;
-use PhpSync\Interfaces\LockInterface;
-use PhpSync\Interfaces\LockSyncDriverInterface;
-use PhpSync\Singletons\SingletonManagerInterface;
+use PhpSync\Core\Exceptions\SyncOperationException;
+use PhpSync\Core\LockInterface;
+use PhpSync\Core\SingletonManagerInterface;
 use Throwable;
 
 /**

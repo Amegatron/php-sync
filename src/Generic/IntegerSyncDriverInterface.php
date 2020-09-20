@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSync\Interfaces;
+namespace PhpSync\Generic;
 
 /**
  * Class IntegerSyncDriverInterface
