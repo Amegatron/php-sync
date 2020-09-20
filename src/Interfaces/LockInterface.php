@@ -13,6 +13,9 @@ use PhpSync\Exceptions\SyncOperationException;
  * When it is said that a lock exists, it is meant the same as the lock is acquired or just locked.
  * Releasing the lock means the same as unlocking it.
  *
+ * "Ghost" means a Lock which still exists but is no longer relevant for the consuming application and was not
+ * properly released by the initiator for whatever reasons, for example a crash.
+ *
  * @package PhpSync
  * @see https://www.ietf.org/rfc/rfc2119.txt
  */

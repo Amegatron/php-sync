@@ -22,10 +22,7 @@ use PhpSync\Exceptions\SyncOperationException;
  *
  *      If a word "value" in relation to Integer is used by itself, it is either not important to distinguish between
  *      ACTUAL and KNOWN values, or the meaning is obvious from the context. Otherwise an ACTUAL VALUE is meant.
- *
- *      "Ghost" means a Lock which still exists but is no longer relevant for the consuming application and was not
- *      released by the initiator for whatever reasons, for example a crash.
- *
+ **
  * Every method which is meant to modify the ACTUAL VALUE of an Integer MUST be atomic, meaning that all subsequent
  * operations concerning the ACTUAL VALUE, including parallel processes, MUST work with the new ACTUAL VALUE.
  *
