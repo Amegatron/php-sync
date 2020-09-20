@@ -7,14 +7,14 @@ namespace PhpSync\Generic;
  *
  * Provides an interface for implementing an underlying mechanisms for Locks.
  *
- * All methods correspond to the same ones of LockInterface
+ * Consider interpreting these methods the same way as described in LockInterface
  *
  * @package PhpSync\Interfaces
  */
 interface LockSyncDriverInterface
 {
     public function lock(string $key);
-    public function unlock(string $key);
+    public function unlock(string $key): bool;
     public function wait(string $key);
     public function exists(string $key);
 }

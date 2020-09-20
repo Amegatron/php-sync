@@ -2,11 +2,12 @@
 
 namespace PhpSync\Generic;
 
+use PhpSync\Core\Exceptions\SyncOperationException;
+
 /**
  * Class IntegerSyncDriverInterface
  *
  * Provides interface for implementing the underlying mechanisms for Sync-ed Integers.
- * Consider this as a Driver for persisting the state of an Integer
  *
  * @package PhpSync\Interfaces
  */
@@ -17,15 +18,17 @@ interface IntegerSyncDriverInterface
      *
      * @param string $key
      * @param int $value
-     * @return mixed
+     * @return int
+     * @throws SyncOperationException
      */
-    public function setValue(string $key, int $value);
+    public function setValue(string $key, int $value): int;
 
     /**
      * Loads an ACTUAL VALUE of an Integer
      *
      * @param string $key
      * @return int
+     * @throws IntegerDoesNotExistException
      */
     public function getValue(string $key): int;
 
@@ -35,6 +38,7 @@ interface IntegerSyncDriverInterface
      * @param string $key
      * @param int $by
      * @return mixed
+     * @throws SyncOperationException
      */
     public function increment(string $key, int $by);
 
@@ -51,6 +55,7 @@ interface IntegerSyncDriverInterface
      *
      * @param string $key
      * @return mixed
+     * @throws SyncOperationException
      */
     public function delete(string $key);
 }
