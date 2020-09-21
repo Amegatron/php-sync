@@ -24,7 +24,7 @@ interface IntegerSyncDriverInterface
     public function setValue(string $key, int $value): int;
 
     /**
-     * Loads an ACTUAL VALUE of an Integer
+     * Loads an ACTUAL VALUE of an Integer. If Integer does not exist, throws IntegerDoesNotExistException
      *
      * @param string $key
      * @return int

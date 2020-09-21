@@ -73,6 +73,7 @@ class Integer implements IntegerInterface
      * @param SingletonManagerInterface $manager
      * @param IntegerSyncDriverInterface $driver
      * @return Integer
+     * @throws IntegerDoesNotExistException
      */
     public static function getInstance($key, SingletonManagerInterface $manager, IntegerSyncDriverInterface $driver)
     {

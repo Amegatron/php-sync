@@ -2,14 +2,17 @@
 
 namespace PhpSync\Generic;
 
+use PhpSync\Core\LockInterface;
+
 /**
  * Interface LockSyncDriverInterface
  *
  * Provides an interface for implementing an underlying mechanisms for Locks.
  *
- * Consider interpreting these methods the same way as described in LockInterface
+ * Meaning of all the methods is exactly the same as in LockInterface
  *
  * @package PhpSync\Interfaces
+ * @see LockInterface
  */
 interface LockSyncDriverInterface
 {

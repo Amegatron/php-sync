@@ -115,7 +115,7 @@ class Lock implements LockInterface
      */
     public function wait()
     {
-        return $this->driver->wait($this->getKey());
+        $this->driver->wait($this->getKey());
     }
 
     /**

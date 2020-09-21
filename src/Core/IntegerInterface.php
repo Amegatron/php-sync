@@ -137,7 +137,7 @@ interface IntegerInterface
     public function refresh(): int;
 
     /**
-     * This method deletes the Integer
+     * This method deletes the Integer from system. If operation fails for any reason, throws SyncOperationException
      *
      * @return mixed
      * @throws SyncOperationException
