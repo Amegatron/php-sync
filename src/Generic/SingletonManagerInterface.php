@@ -12,7 +12,10 @@ namespace PhpSync\Generic;
 interface SingletonManagerInterface
 {
     public function get(string $key, string $className);
+
     public function set(string $key, string $className, $instance);
+
     public function remove(string $key, string $className);
+
     public function has(string $key, string $className): bool;
 }

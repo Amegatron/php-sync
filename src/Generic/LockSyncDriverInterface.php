@@ -17,7 +17,10 @@ use PhpSync\Core\LockInterface;
 interface LockSyncDriverInterface
 {
     public function lock(string $key);
+
     public function unlock(string $key): bool;
+
     public function wait(string $key);
+
     public function exists(string $key);
 }

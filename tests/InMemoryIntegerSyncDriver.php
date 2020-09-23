@@ -1,12 +1,13 @@
 <?php
 
 use PhpSync\Generic\IntegerDoesNotExistException;
+use PhpSync\Generic\IntegerSyncDriverInterface;
 
-class InMemoryIntegerSyncDriver implements \PhpSync\Generic\IntegerSyncDriverInterface
+class InMemoryIntegerSyncDriver implements IntegerSyncDriverInterface
 {
     /** @var array */
     private $values = [];
-    
+
     /**
      * @inheritDoc
      */
