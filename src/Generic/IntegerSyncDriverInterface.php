@@ -33,14 +33,14 @@ interface IntegerSyncDriverInterface
     public function getValue(string $key): int;
 
     /**
-     * Increments an ACTUAL VALUE of an Integer
+     * Increments an ACTUAL VALUE of an Integer and returns new value
      *
      * @param string $key
      * @param int $by
-     * @return mixed
+     * @return int
      * @throws SyncOperationException
      */
-    public function increment(string $key, int $by);
+    public function increment(string $key, int $by): int;
 
     /**
      * Checks if an Integer with specified key already exists

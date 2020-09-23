@@ -2,7 +2,6 @@
 
 require_once __DIR__ . "/InMemoryIntegerSyncDriver.php";
 
-use PhpSync\Core\IntegerInterface;
 use PhpSync\Generic\Integer;
 use PhpSync\Generic\IntegerSyncDriverInterface;
 use PhpSync\Generic\SingletonManager;
@@ -11,8 +10,11 @@ use PHPUnit\Framework\TestCase;
 
 class IntegerTest extends TestCase
 {
-    private SingletonManagerInterface $manager;
-    private IntegerSyncDriverInterface $inMemoryIntegerSyncDriver;
+    /** @var SingletonManagerInterface */
+    private $manager;
+
+    /** @var IntegerSyncDriverInterface */
+    private $inMemoryIntegerSyncDriver;
 
     public function setUp(): void
     {

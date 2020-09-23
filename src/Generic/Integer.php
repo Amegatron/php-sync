@@ -73,7 +73,7 @@ class Integer implements IntegerInterface
      * @param SingletonManagerInterface $manager
      * @param IntegerSyncDriverInterface $driver
      * @return Integer
-     * @throws IntegerDoesNotExistException
+     * @throws SyncOperationException
      */
     public static function getInstance($key, SingletonManagerInterface $manager, IntegerSyncDriverInterface $driver)
     {
@@ -82,7 +82,11 @@ class Integer implements IntegerInterface
         } else {
             $value = 0;
             if ($driver->hasValue($key)) {
-                $value = $driver->getValue($key);
+                try {
+                    $value = $driver->getValue($key);
+                } catch (Throwable $e) {
+                    throw new SyncOperationException();
+                }
             }
             $instance = new self($key, $value);
             $instance->driver = $driver;
@@ -168,5 +172,13 @@ class Integer implements IntegerInterface
         } catch (Throwable $e) {
             throw new SyncOperationException($e->getMessage(), 0, $e);
         }
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function exists(): bool
+    {
+        return $this->driver->hasValue($this->getKey());
     }
 }

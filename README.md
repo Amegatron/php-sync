@@ -1,7 +1,7 @@
 ## PHP-SYNC ##
 ### (First draft) ###
 
-This package provides a set of interfaces which should ease the process of synchronizing different PHP scripts
+This package provides a set of interfaces and generic implementations which should ease the process of synchronizing different PHP scripts
 running in parallel.
 
 #### Locks ####

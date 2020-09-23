@@ -7,8 +7,10 @@ use PHPUnit\Framework\TestCase;
 class SingletonManagerTest extends TestCase
 {
     /** @var SingletonManagerInterface */
-    private SingletonManagerInterface $manager;
-    private string $className;
+    private $manager;
+
+    /** @var string */
+    private $className;
 
     public function setUp(): void
     {

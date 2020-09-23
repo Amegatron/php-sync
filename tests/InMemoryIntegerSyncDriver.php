@@ -4,8 +4,9 @@ use PhpSync\Generic\IntegerDoesNotExistException;
 
 class InMemoryIntegerSyncDriver implements \PhpSync\Generic\IntegerSyncDriverInterface
 {
-
-    private array $values = [];
+    /** @var array */
+    private $values = [];
+    
     /**
      * @inheritDoc
      */
@@ -30,7 +31,7 @@ class InMemoryIntegerSyncDriver implements \PhpSync\Generic\IntegerSyncDriverInt
     /**
      * @inheritDoc
      */
-    public function increment(string $key, int $by)
+    public function increment(string $key, int $by): int
     {
         $value = $this->values[$key] ?? 0;
         $value += $by;

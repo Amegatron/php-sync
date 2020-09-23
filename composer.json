@@ -1,6 +1,6 @@
 {
   "name": "amegatron/php-sync",
-  "description": "A set of interfaces providing Sync possibilities among PHP scrips working in parallel",
+  "description": "A set of interfaces and generic implementations which provide possibilities to synchronize parallel PHP scripts",
   "minimum-stability": "stable",
   "license": "BSD",
   "authors": [
@@ -10,6 +10,7 @@
     }
   ],
   "require": {
+    "php": ">=7.3"
   },
   "autoload": {
     "psr-4": {

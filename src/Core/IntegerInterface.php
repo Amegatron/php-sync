@@ -49,10 +49,15 @@ interface IntegerInterface
     /**
      * Gets a KNOWN VALUE of this Integer.
      *
-     * This method SHOULD NOT perform a refresh operation. Use refresh() method separately to get an ACTUAL VALUE.
+     * This method MUST NOT perform a refresh operation. Use refresh() method separately to get an ACTUAL VALUE.
+     *
+     * When creating a new instance of this interface referencing not yet existing Integer, the initial KNOWN VALUE MUST be 0.
+     *
+     * Use exists() to check if an Integer already exist.
      *
      * @return int
-     * @see refresh
+     * @see refresh()
+     * @see exists()
      */
     public function getValue(): int;
 
@@ -82,6 +87,9 @@ interface IntegerInterface
      * If 0 was passed as an argument, this method MUST still refresh the KNOWN VALUE, as if it truly tried to
      * increment.
      *
+     * If increment was called for not yet existing Integer, this operation MUST still perform as if it existed, assuming
+     * ACTUAL VALUE is 0, thus creating an Integer, which makes this method an alternative to setValue().
+     *
      * Example #1
      * A specific Integer currently has an ACTUAL VALUE of 0. Any amount of N concurrent increments of
      * this Integer by 1 (without intermediate decrements) MUST result in the final ACTUAL VALUE of an Integer being N,
@@ -106,7 +114,8 @@ interface IntegerInterface
      * @param int $by
      * @return int
      * @throws SyncOperationException
-     * @see decrement
+     * @see decrement()
+     * @see setValue()
      */
     public function increment($by = 1): int;
 
@@ -143,4 +152,13 @@ interface IntegerInterface
      * @throws SyncOperationException
      */
     public function delete();
+
+    /**
+     * Checks if the Integer already exists in the system and returns true in this case.
+     * False otherwise.
+     *
+     * @return bool
+     * @throws SyncOperationException
+     */
+    public function exists(): bool;
 }
