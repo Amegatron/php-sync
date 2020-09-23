@@ -105,6 +105,21 @@ class IntegerTest extends TestCase
         $this->assertEquals($by1, $integer2->getValue());
     }
 
+    public function testIntegerDoesNotExist()
+    {
+        $key = $this->getRandomKey();
+        $integer = Integer::getInstance($key, $this->manager, $this->inMemoryIntegerSyncDriver);
+        $this->assertFalse($integer->exists());
+    }
+
+    public function testIntegerExists()
+    {
+        $key = $this->getRandomKey();
+        $integer = Integer::getInstance($key, $this->manager, $this->inMemoryIntegerSyncDriver);
+        $integer->setValue(10);
+        $this->assertTrue($integer->exists());
+    }
+
     private function getRandomKey()
     {
         return md5(mt_rand(0, 10000));
