@@ -12,12 +12,12 @@ use Throwable;
  *
  * This class provides an implementation for arbitrary Locks
  *
- * TODO: provide more detailed description
- *
  * @package PhpSync
  */
 class Lock implements LockInterface
 {
+    /** @var SingletonManagerInterface */
+    private static $instanceManager;
     /**
      * @var string
      */
@@ -62,20 +62,27 @@ class Lock implements LockInterface
      * Gets an instance of Lock representing a real Lock in the system.
      *
      * @param string $key
-     * @param SingletonManagerInterface|null $manager
      * @param LockSyncDriverInterface $driver
+     * @param SingletonManagerInterface|null $singletonManager
      * @return Lock
      */
-    public static function getInstance(string $key, LockSyncDriverInterface $driver, ?SingletonManagerInterface $manager = null)
+    public static function getInstance(string $key, LockSyncDriverInterface $driver, ?SingletonManagerInterface $singletonManager = null)
     {
-        if ($manager && $manager->has($key, self::class)) {
+        // If SingleManager was not provided, use internal one for global Singleton management
+        $manager = $singletonManager;
+        if (!$manager) {
+            if (!self::$instanceManager) {
+                self::$instanceManager = new SingletonManager();
+            }
+            $manager = self::$instanceManager;
+        }
+
+        if ($manager->has($key, self::class)) {
             return $manager->get($key, self::class);
         } else {
             $instance = new self($key);
             $instance->driver = $driver;
-            if ($manager) {
-                $manager->set($key, self::class, $instance);
-            }
+            $manager->set($key, self::class, $instance);
             return $instance;
         }
     }

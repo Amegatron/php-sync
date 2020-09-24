@@ -16,6 +16,9 @@ use Throwable;
  */
 class Integer implements IntegerInterface
 {
+    /** @var SingletonManagerInterface */
+    private static $instanceManager;
+
     /** @var string */
     private $key;
 
@@ -70,14 +73,23 @@ class Integer implements IntegerInterface
      * without persisting it.
      *
      * @param $key
-     * @param SingletonManagerInterface|null $manager
      * @param IntegerSyncDriverInterface $driver
+     * @param SingletonManagerInterface|null $singletonManager
      * @return Integer
      * @throws SyncOperationException
      */
-    public static function getInstance($key, IntegerSyncDriverInterface $driver, ?SingletonManagerInterface $manager = null)
+    public static function getInstance($key, IntegerSyncDriverInterface $driver, ?SingletonManagerInterface $singletonManager = null)
     {
-        if ($manager && $manager->has($key, self::class)) {
+        // If SingleManager was not provided, use internal one for global Singleton management
+        $manager = $singletonManager;
+        if (!$manager) {
+            if (!self::$instanceManager) {
+                self::$instanceManager = new SingletonManager();
+            }
+            $manager = self::$instanceManager;
+        }
+
+        if ($manager->has($key, self::class)) {
             return $manager->get($key, self::class);
         } else {
             $value = 0;
@@ -90,9 +102,7 @@ class Integer implements IntegerInterface
             }
             $instance = new self($key, $value);
             $instance->driver = $driver;
-            if ($manager) {
-                $manager->set($key, self::class, $instance);
-            }
+            $manager->set($key, self::class, $instance);
             return $instance;
         }
     }
