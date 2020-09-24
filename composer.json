@@ -1,7 +1,7 @@
 {
   "name": "amegatron/php-sync",
   "description": "A set of interfaces and generic implementations which provide synchronization possibilities for background PHP scripts",
-  "minimum-stability": "stable",
+  "minimum-stability": "beta",
   "license": "BSD",
   "authors": [
     {
