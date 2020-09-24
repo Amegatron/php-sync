@@ -34,3 +34,10 @@ Assuming generic implementation is good enough for you, I encourage everybody to
 of it by implementing and publishing different kinds of Drivers which could involve any underlying
 technology to provide the needed functionality, atomicity mainly. Otherwise, you are free to make
 your own implementations of the Interface Layer capable of whatever you find useful.
+
+When publishing new drivers, it is highly recommended that you cover them with tests.
+For some cases multi-threaded testing is necessary to check locking mechanisms and/or atomicity of 
+your implementation. You can have a look at the mentioned [amegatron\php-sync-fs](https://github.com/Amegatron/php-sync-fs)
+to get an idea about one of the possible ways to achieve that by means of pure PHP (`proc_*` functions).
+Though it is recommended that you stick to PHP as much as possible in tests, third-party tools or scripts
+MAY still be involved, including, for example, scripts written in GoLang, Python, etc.
