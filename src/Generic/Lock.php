@@ -62,18 +62,20 @@ class Lock implements LockInterface
      * Gets an instance of Lock representing a real Lock in the system.
      *
      * @param string $key
-     * @param SingletonManagerInterface $manager
+     * @param SingletonManagerInterface|null $manager
      * @param LockSyncDriverInterface $driver
      * @return Lock
      */
-    public static function getInstance(string $key, SingletonManagerInterface $manager, LockSyncDriverInterface $driver)
+    public static function getInstance(string $key, ?SingletonManagerInterface $manager, LockSyncDriverInterface $driver)
     {
-        if ($manager->has($key, self::class)) {
+        if ($manager && $manager->has($key, self::class)) {
             return $manager->get($key, self::class);
         } else {
             $instance = new self($key);
             $instance->driver = $driver;
-            $manager->set($key, self::class, $instance);
+            if ($manager) {
+                $manager->set($key, self::class, $instance);
+            }
             return $instance;
         }
     }
@@ -106,7 +108,7 @@ class Lock implements LockInterface
         try {
             return $this->driver->unlock($this->getKey());
         } catch (Throwable $e) {
-            throw new SyncOperationException($e->getMessage());
+            throw new SyncOperationException($e->getMessage(), 0, $e);
         }
     }
 

@@ -70,14 +70,14 @@ class Integer implements IntegerInterface
      * without persisting it.
      *
      * @param $key
-     * @param SingletonManagerInterface $manager
+     * @param SingletonManagerInterface|null $manager
      * @param IntegerSyncDriverInterface $driver
      * @return Integer
      * @throws SyncOperationException
      */
-    public static function getInstance($key, SingletonManagerInterface $manager, IntegerSyncDriverInterface $driver)
+    public static function getInstance($key, ?SingletonManagerInterface $manager, IntegerSyncDriverInterface $driver)
     {
-        if ($manager->has($key, self::class)) {
+        if ($manager && $manager->has($key, self::class)) {
             return $manager->get($key, self::class);
         } else {
             $value = 0;
@@ -90,7 +90,9 @@ class Integer implements IntegerInterface
             }
             $instance = new self($key, $value);
             $instance->driver = $driver;
-            $manager->set($key, self::class, $instance);
+            if ($manager) {
+                $manager->set($key, self::class, $instance);
+            }
             return $instance;
         }
     }
