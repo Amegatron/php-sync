@@ -22,6 +22,6 @@
     "phpunit/phpunit": "^9"
   },
   "suggest": {
-    "amegatron/php-sync-fs": "Provides local functionaly based on file-system"
+    "amegatron/php-sync-fs": "Provides functionality based on local file-system"
   }
 }
