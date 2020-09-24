@@ -20,5 +20,8 @@
   },
   "require-dev": {
     "phpunit/phpunit": "^9"
+  },
+  "suggest": {
+    "amegatron/php-sync-fs": "Provides local functionaly based on file-system"
   }
 }

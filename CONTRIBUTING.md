@@ -23,10 +23,10 @@ Any bugs or improvements to this part of the project are separate from the inter
 
 Drivers are the "working units" specifically of the Generic Implementation described above.
 They are completely separate from the Interface Layer and are meant only to provide concrete 
-functionality for the Generic layer. Each driver (or set of drivers) MUST be a
-separate package from the one you are currently in. Moreover, each driver SHOULD be inside a separate
-namespace like `\PhpSync\Driver\<name_here>\`. Have a look at `amegatron\php-sync-fs` package as an 
-example of a specific driver for a Generic layer, based on local file system.
+functionality for the Generic layer. Each driver (or set of drivers) should be a
+separate package from the one you are currently in. Moreover, it is recommended that each driver lies
+inside a separate namespace like `\PhpSync\Driver\<name_here>\`. Have a look at `amegatron\php-sync-fs`
+package as an example of a specific driver for a Generic layer, based on local file system.
 
 ## Contributing
 
