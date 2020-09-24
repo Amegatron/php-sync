@@ -16,7 +16,7 @@ from any MessageQueue engine and constantly start and finish with help of `super
 temporarily pause them, you could introduce a lock to the system which all the workers would wait for before taking new
 tasks. In general, this could look like this:
 
-1. Before taking a new task, all workers `wait` for a `Lock` named, foe example, `pause`:
+1. Before taking a new task, all workers `wait` for a `Lock` named, for example, `pause`:
 
 ```php
 // $lock is an instance of LockInterface which is associated with a specific Lock called 'pause'
@@ -62,7 +62,7 @@ $driver = // get a specific driver somehow, see further
 $lock = \PhpSync\Generic\Lock::getInstance('some_lock', $driver);
 ```
 Later on, if you try to get in instance of Lock for the same `name` (or `key`) `some_lock` you'll get exactly the same instance:
-```
+```php
 $lock2 = \PhpSync\Generic\Lock::getInstance('some_lock', $driver);
 // $lock === $lock2
 ```
