@@ -2,6 +2,7 @@
 
 namespace PhpSync\Generic;
 
+use PhpSync\Core\Exceptions\IntegerDoesNotExistException;
 use PhpSync\Core\Exceptions\SyncOperationException;
 
 /**

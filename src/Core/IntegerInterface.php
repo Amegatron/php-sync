@@ -2,6 +2,7 @@
 
 namespace PhpSync\Core;
 
+use PhpSync\Core\Exceptions\IntegerDoesNotExistException;
 use PhpSync\Core\Exceptions\SyncOperationException;
 
 /**
@@ -139,8 +140,11 @@ interface IntegerInterface
      *
      * This method MUST return the ACTUAL VALUE of an Integer
      *
+     * If an Integer does not exist yet, it MUST throw an IntegerDoesNotExistException
+     *
      * @return int
      * @throws SyncOperationException
+     * @throws IntegerDoesNotExistException
      * @see getValue
      */
     public function refresh(): int;

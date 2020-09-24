@@ -3,6 +3,7 @@
 namespace PhpSync\Generic;
 
 use Exception;
+use PhpSync\Core\Exceptions\IntegerDoesNotExistException;
 use PhpSync\Core\Exceptions\SyncOperationException;
 use PhpSync\Core\IntegerInterface;
 use Throwable;
@@ -96,6 +97,8 @@ class Integer implements IntegerInterface
             if ($driver->hasValue($key)) {
                 try {
                     $value = $driver->getValue($key);
+                } catch (IntegerDoesNotExistException $e) {
+                    $value = 0;
                 } catch (Throwable $e) {
                     throw new SyncOperationException();
                 }
@@ -169,6 +172,8 @@ class Integer implements IntegerInterface
         try {
             $this->knownValue = $this->driver->getValue($this->getKey());
             return $this->knownValue;
+        } catch (IntegerDoesNotExistException $e) {
+            throw $e;
         } catch (Throwable $e) {
             throw new SyncOperationException($e->getMessage(), 0, $e);
         }
