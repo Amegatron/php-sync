@@ -31,9 +31,14 @@ $lock->lock();
 ``` 
 All the workers will pause, waiting until the lock is `released` from the controlling side:     
 ```php
-$lock->release();
+$lock->unlock();
 ```
-
+You can also check if a there is an existing (acquired) Lock by using `exists` method:
+```php
+if ($lock->exists()) {
+    // ...
+}
+```
 See the `Generic implementation` for more info.
       
 #### IntegerInterface
@@ -46,11 +51,26 @@ called `progress` for example, which would act as a counter. Upon completion of 
 each worker would `increment` that Integer.
 ```php
 // $integers is an instance of IntegerInterface associated with 'progress'  
-$integer->increment();
+$integer->increment(1);
 ```
 Any time you need to display a total progress, you could just take that `progress` Integer together
 with N (which could also be another instance of `IntegerInterface`, btw) and calculate the progress
-in percents and display it somehow.
+in percents and display it somehow. You could also work with that N directly, calling `decrement` each
+time a task is finished:
+```php
+$integer->decrement(1); // which is also the same as $integer->increment(-1);
+if ($integer->getValue() == 0) {
+    // ...
+}
+```
+
+You can always check if an Integer `exists` or `delete` it:
+```php
+if ($integer->exists()) {
+    // ...
+    $integer->delete();
+}
+```
 
 See also `Generic implementation` for more info.
 
