@@ -75,7 +75,7 @@ class Integer implements IntegerInterface
      * @return Integer
      * @throws SyncOperationException
      */
-    public static function getInstance($key, ?SingletonManagerInterface $manager, IntegerSyncDriverInterface $driver)
+    public static function getInstance($key, IntegerSyncDriverInterface $driver, ?SingletonManagerInterface $manager = null)
     {
         if ($manager && $manager->has($key, self::class)) {
             return $manager->get($key, self::class);

@@ -66,7 +66,7 @@ class Lock implements LockInterface
      * @param LockSyncDriverInterface $driver
      * @return Lock
      */
-    public static function getInstance(string $key, ?SingletonManagerInterface $manager, LockSyncDriverInterface $driver)
+    public static function getInstance(string $key, LockSyncDriverInterface $driver, ?SingletonManagerInterface $manager = null)
     {
         if ($manager && $manager->has($key, self::class)) {
             return $manager->get($key, self::class);

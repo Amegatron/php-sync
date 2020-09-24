@@ -25,7 +25,7 @@ class IntegerTest extends TestCase
     public function testIntegerHasDefaultValueZeroForNonExistentInteger()
     {
         $key = $this->getRandomKey();
-        $integer = Integer::getInstance($key, $this->manager, $this->inMemoryIntegerSyncDriver);
+        $integer = Integer::getInstance($key, $this->inMemoryIntegerSyncDriver, $this->manager);
         $this->assertEquals(0, $integer->getValue());
         return $integer;
     }
@@ -33,7 +33,7 @@ class IntegerTest extends TestCase
     public function testIntegerIncrementsValue()
     {
         $key = $this->getRandomKey();
-        $integer = Integer::getInstance($key, $this->manager, $this->inMemoryIntegerSyncDriver);
+        $integer = Integer::getInstance($key, $this->inMemoryIntegerSyncDriver, $this->manager);
         $by = mt_rand(1, 1000000);
         $integer->increment($by);
         $this->assertEquals($by, $integer->getValue());
@@ -42,7 +42,7 @@ class IntegerTest extends TestCase
     public function testIntegerDecrementsValue()
     {
         $key = $this->getRandomKey();
-        $integer = Integer::getInstance($key, $this->manager, $this->inMemoryIntegerSyncDriver);
+        $integer = Integer::getInstance($key, $this->inMemoryIntegerSyncDriver, $this->manager);
         $by = mt_rand(1, 1000000);
         $integer->decrement($by);
         $this->assertEquals(-$by, $integer->getValue());
@@ -51,7 +51,7 @@ class IntegerTest extends TestCase
     public function testIntegerCanIncrementByNegativeNumber()
     {
         $key = $this->getRandomKey();
-        $integer = Integer::getInstance($key, $this->manager, $this->inMemoryIntegerSyncDriver);
+        $integer = Integer::getInstance($key, $this->inMemoryIntegerSyncDriver, $this->manager);
         $by = mt_rand(1, 1000000);
         $by *= -1;
         $integer->increment($by);
@@ -61,7 +61,7 @@ class IntegerTest extends TestCase
     public function testIntegerCanDecrementByNegativeNumber()
     {
         $key = $this->getRandomKey();
-        $integer = Integer::getInstance($key, $this->manager, $this->inMemoryIntegerSyncDriver);
+        $integer = Integer::getInstance($key, $this->inMemoryIntegerSyncDriver, $this->manager);
         $by = mt_rand(1, 1000000);
         $by *= -1;
         $integer->decrement($by);
@@ -71,8 +71,8 @@ class IntegerTest extends TestCase
     public function testIntegerGetsSameInstance()
     {
         $key = $this->getRandomKey();
-        $integer1 = Integer::getInstance($key, $this->manager, $this->inMemoryIntegerSyncDriver);
-        $integer2 = Integer::getInstance($key, $this->manager, $this->inMemoryIntegerSyncDriver);
+        $integer1 = Integer::getInstance($key, $this->inMemoryIntegerSyncDriver, $this->manager);
+        $integer2 = Integer::getInstance($key, $this->inMemoryIntegerSyncDriver, $this->manager);
         $this->assertSame($integer1, $integer2);
     }
 
@@ -80,8 +80,8 @@ class IntegerTest extends TestCase
     {
         $manager2 = new SingletonManager();
         $key = $this->getRandomKey();
-        $integer1 = Integer::getInstance($key, $this->manager, $this->inMemoryIntegerSyncDriver);
-        $integer2 = Integer::getInstance($key, $manager2, $this->inMemoryIntegerSyncDriver);
+        $integer1 = Integer::getInstance($key, $this->inMemoryIntegerSyncDriver, $this->manager);
+        $integer2 = Integer::getInstance($key, $this->inMemoryIntegerSyncDriver, $manager2);
         $by1 = mt_rand(1, 1000000);
         $integer1->increment($by1);
         $by2 = mt_rand(1, 1000000);
@@ -96,8 +96,8 @@ class IntegerTest extends TestCase
     {
         $manager2 = new SingletonManager();
         $key = $this->getRandomKey();
-        $integer1 = Integer::getInstance($key, $this->manager, $this->inMemoryIntegerSyncDriver);
-        $integer2 = Integer::getInstance($key, $manager2, $this->inMemoryIntegerSyncDriver);
+        $integer1 = Integer::getInstance($key, $this->inMemoryIntegerSyncDriver, $this->manager);
+        $integer2 = Integer::getInstance($key, $this->inMemoryIntegerSyncDriver, $manager2);
         $by1 = mt_rand(1, 1000000);
         $integer1->increment($by1);
         $integer2->increment(0);
@@ -108,14 +108,14 @@ class IntegerTest extends TestCase
     public function testIntegerDoesNotExist()
     {
         $key = $this->getRandomKey();
-        $integer = Integer::getInstance($key, $this->manager, $this->inMemoryIntegerSyncDriver);
+        $integer = Integer::getInstance($key, $this->inMemoryIntegerSyncDriver, $this->manager);
         $this->assertFalse($integer->exists());
     }
 
     public function testIntegerExists()
     {
         $key = $this->getRandomKey();
-        $integer = Integer::getInstance($key, $this->manager, $this->inMemoryIntegerSyncDriver);
+        $integer = Integer::getInstance($key, $this->inMemoryIntegerSyncDriver, $this->manager);
         $integer->setValue(10);
         $this->assertTrue($integer->exists());
     }
