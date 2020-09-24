@@ -73,4 +73,4 @@ Everything stated above is also actual for a generic `Integer` implementation.
 #### Drivers ####
 This generic implementation uses `Drivers` for actual realization of the main functionality. Specifically, there are two kinds of drivers: `LockSyncDriverInterface` and `IntegerSyncDriverInterface`, which provide corresponding interfaces for making some atomic actions. Those drivers are NOT shipped with package and MUST be installed additionally.
 
-For example, consider looking at a neighbor package `amegatron/php-sync-fs`, which provide drivers for implementing the functionality based on a local file system.
+For example, consider looking at a neighbor package [amegatron/php-sync-fs](https://github.com/Amegatron/php-sync-fs), which provide drivers for implementing the functionality based on a local file system.
