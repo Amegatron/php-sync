@@ -7,8 +7,8 @@ In context of contributing please keep in mind that there separate layers of the
 This is a top layer and provides just the interfaces for synchronizing parallel tasks. You can also
 consider it as a contract, or protocol, which strictly defines the rules. This layer is meant to be
 the most stable part and ideally never change, provided that it suits all the needs when speaking about
-synchronization. But keep in mind though, that it is an early version now and further adjustments can
-certainly take place. Currently everything under `\PhpSync\Core\` namespace defines this layer.
+synchronization. Keep in mind though, that it is an early version now and further adjustments can
+certainly take place. Currently, everything under `\PhpSync\Core\` namespace defines this layer.
 
 Contributions to this part may include discussions about what feature should or must be inside these
 interfaces.
@@ -16,7 +16,7 @@ interfaces.
 #### Generic implementation
 
 This layer is just to provide a generic working implementation of the Interface Layer
-mentioned above. Currently everything inside the `\PhpSync\Generic\` namespace define this layer.
+mentioned above. Currently, everything inside the `\PhpSync\Generic\` namespace define this layer.
 Any bugs or improvements to this part of the project are separate from the interface layer.
 
 #### Drivers
